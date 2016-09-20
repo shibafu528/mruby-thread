@@ -5,7 +5,7 @@ MRuby::Gem::Specification.new('mruby-thread') do |spec|
   # Uncomment for copying instances on Thread::new()
   # spec.cc.flags << "-DMRB_THREAD_COPY_VALUES"
   
-  if build.toolchains.include?("androideabi")
+  if build.toolchains.include?("android")
     spec.cc.flags << '-DHAVE_PTHREADS'
   else
     spec.linker.libraries << ['pthread']
