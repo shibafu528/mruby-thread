@@ -1,13 +1,10 @@
 MRuby::Gem::Specification.new('mruby-thread') do |spec|
   spec.license = 'MIT'
   spec.authors = 'mattn'
-  
-  # Uncomment for copying instances on Thread::new()
-  # spec.cc.flags << "-DMRB_THREAD_COPY_VALUES"
-  
-  if build.toolchains.include?("android")
-    spec.cc.flags << '-DHAVE_PTHREADS'
+
+  if build.toolchains.include?('android')
+    spec.cc.defines << 'HAVE_PTHREADS'
   else
-    spec.linker.libraries << ['pthread']
+    spec.linker.flags << '-pthread'
   end
 end
