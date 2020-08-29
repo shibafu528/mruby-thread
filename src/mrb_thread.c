@@ -68,7 +68,11 @@ mrb_thread_context_free(mrb_state *mrb, void *p) {
   if (p) {
     mrb_thread_context* context = (mrb_thread_context*) p;
     if (context->alive) {
+#ifdef __ANDROID__
+      pthread_kill(context->thread, SIGINT);
+#else
       pthread_cancel(context->thread);
+#endif
     }
     if (context->mrb && context->mrb != mrb) mrb_close(context->mrb);
     if (context->argv) free(context->argv);
